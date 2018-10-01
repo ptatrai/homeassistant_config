@@ -1,0 +1,93 @@
+- alias: Turn on aquarium light
+  trigger:
+  - platform: time
+    at: 06:30:00
+  action:
+    service: light.turn_on
+    data:
+      entity_id:
+      - light.aquarium
+  id: e300b48a07c34417af1deccd68ddc8f1
+- alias: Turn off aquarium light
+  trigger:
+  - platform: time
+    at: '20:00:00'
+  action:
+    service: light.turn_off
+    data:
+      entity_id:
+      - light.aquarium
+  id: 446e4252ae3f4113ab41dcd74f2dd6f7
+- id: '1538284959745'
+  alias: Zapni Fontanu
+  trigger:
+  - event: sunrise
+    offset: +0:30:00
+    platform: sun
+  - at: '7:20'
+    platform: time
+  - at: '15:30'
+    platform: time
+  condition:
+  - after: '7:19'
+    condition: time
+  action:
+  - data:
+      entity_id: switch.fontana_1_31
+    service: switch.turn_on
+- id: '1538285356708'
+  alias: Vypni Fontanu
+  trigger:
+  - at: '9:30'
+    platform: time
+  - event: sunset
+    offset: -0:20:00
+    platform: sun
+  condition: []
+  action:
+  - data:
+      entity_id: switch.fontana_1_31
+    service: switch.turn_off
+- id: '1538406049554'
+  alias: Update LG TV switch state to ON
+  trigger:
+  - entity_id: device_tracker.lg_tv
+    platform: state
+    to: home
+  - entity_id: media_player.lg_tv
+    from: 'off'
+    platform: state
+  condition:
+  - condition: state
+    entity_id: switch.tv
+    state: 'off'
+  action:
+  - data:
+      topic: 'house/livingroom/tv_state'
+      payload: 'ON'
+    service: mqtt.publish
+- id: update_lg_off
+  alias: Update LG TV switch state to OFF
+  trigger:
+  - entity_id: media_player.lg_tv
+    platform: state
+    to: 'off'
+  condition:
+  - condition: state
+    entity_id: switch.tv
+    state: 'on'
+  action:
+  - data:
+      topic: 'house/livingroom/tv_state'
+      payload: 'OFF'
+    service: mqtt.publish
+- id: update_plex
+  alias: Update LG TV Plex switch state
+  trigger:
+  - platform: state
+    entity_id: sensor.lg_tv_source
+  action:
+  - data:
+      topic: 'house/livingroom/plex_state'
+      payload_template: "{% if is_state_attr('media_player.lg_tv', 'source', 'Plex') -%}ON{%- else -%}OFF{%- endif %}"
+    service: mqtt.publish

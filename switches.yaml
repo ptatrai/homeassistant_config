@@ -1,0 +1,26 @@
+- platform: mqtt
+  command_topic: "house/livingroom/soundbar"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_topic: "house/livingroom/soundbar"
+  name: "Soundbar switch"
+  retain: true
+- platform: mqtt
+  command_topic: "house/livingroom/xbox"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_topic: "house/livingroom/xbox"
+  name: "Xbox"
+  retain: true
+- platform: mqtt
+  command_topic: "house/livingroom/tv"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_topic: "house/livingroom/tv_state"
+  name: "TV"
+- platform: mqtt
+  command_topic: "house/livingroom/plex"
+  payload_on: "ON"
+  payload_off: "OFF"
+  state_topic: "house/livingroom/plex_state"
+  name: "Plex"

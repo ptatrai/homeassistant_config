@@ -1,0 +1,98 @@
+switch.fontana_1_31:
+  friendly_name: Fontána
+switch.q2_load_32:
+  hidden: true
+  homebridge_hidden: true
+device_tracker.0025ed1b1066:
+  friendly_name: Kodi Pi 3
+  hidden: true
+  source_type: router
+device_tracker.pi_kodi:
+  icon: mdi:pi
+device_tracker.iphone6_peto:
+  icon: mdi:cellphone-iphone
+device_tracker.iphone4_mato:
+  icon: mdi:cellphone-iphone
+device_tracker.iphone5_katka:
+  icon: mdi:cellphone-iphone
+device_tracker.iphone5_lukas:
+  icon: mdi:cellphone-iphone
+device_tracker.pi_voda:
+  friendly_name: Voda
+  icon: mdi:pi
+device_tracker.lg_tv:
+  icon: mdi:television
+device_tracker.bedroom:
+  icon: mdi:speaker
+device_tracker.detska:
+  icon: mdi:speaker
+device_tracker.macbook:
+  icon: mdi:laptop-mac
+device_tracker.pixelbook:
+  icon: mdi:laptop-chromebook
+device_tracker.remote:
+  icon: mdi:remote
+device_tracker.ryzen:
+  icon: mdi:desktop-tower
+device_tracker.sauna:
+  icon: mdi:speaker
+device_tracker.soundbar:
+  icon: mdi:speaker
+device_tracker.vera:
+  icon: mdi:remote
+device_tracker.zen:
+  icon: mdi:speaker
+device_tracker.asus_ap:
+  icon: mdi:access-point
+device_tracker.cable_modem:
+  icon: mdi:access-point
+device_tracker.detska_pc:
+  icon: mdi:desktop-tower
+device_tracker.echo1:
+  friendly_name: Echo Black
+  icon: mdi:hockey-puck
+device_tracker.keypad_office:
+  icon: mdi:menu-swap
+media_player.lg_plex:
+  icon: mdi:cellphone
+device_tracker.philips_tv:
+  icon: mdi:television
+device_tracker.pixelbook_lan:
+  icon: mdi:laptop-chromebook
+device_tracker.ipad1:
+  icon: mdi:tablet-ipad
+device_tracker.ipad2:
+  icon: mdi:tablet-ipad
+device_tracker.kindle:
+  icon: mdi:book-open
+device_tracker.888717c30b0a:
+  friendly_name: Canon Printer
+  icon: mdi:printer
+device_tracker.9ccad922389c:
+  friendly_name: nokia
+  icon: mdi:cellphone
+device_tracker.f8da0c5530ad:
+  friendly_name: HP Kate
+  icon: mdi:laptop
+device_tracker.0025ed1d4adb:
+  friendly_name: Keypad Soundbar
+  icon: mdi:menu-swap
+device_tracker.00fc8b81e3a9:
+  friendly_name: Echo White
+  icon: mdi:hockey-puck
+device_tracker.0025ed9b1066:
+  friendly_name: Tabletop
+  icon: mdi:speaker
+device_tracker.3c970e44ae63:
+  friendly_name: Acer Iva
+  icon: mdi:cellphone
+device_tracker.thinkpad:
+  friendly_name: Thinkpad
+  icon: mdi:laptop
+group.all_switches: {}
+group.all_lights:
+  friendly_name: All Lights
+light.desk_lamp:
+  friendly_name: Desk Light
+switch.soundbar_switch:
+  friendly_name: Soundbar Switch

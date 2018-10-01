@@ -1,0 +1,83 @@
+title: My Home
+# Include external resources
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+
+# Optional background for all views. Check https://developer.mozilla.org/en-US/docs/Web/CSS/background for more examples.
+background: center / cover no-repeat url("/background.png") fixed
+# Exclude entities from "Unused entities" view
+excluded_entities:
+views:
+    # View tab title.
+  - title: Overview
+    # Optional unique id for direct access /lovelace/${id}
+    id: home
+    # Specify a tab icon if you want the view tab to be an icon.
+    icon: mdi:home-assistant
+    # Optional background (overwrites the global background).
+    background: radial-gradient(crimson, skyblue)
+    # Each view can have a different theme applied. Theme should be defined in the frontend.
+    theme: dark-mode
+    # The cards to show on this view.
+    cards:
+        # The filter card will filter entities for their state
+      - type: entity-filter
+        entities:
+          - entity: device_tracker.iphone6_peto
+            name: Peto
+          - entity: device_tracker.iphone5_katka
+            name: Katka
+          - entity: device_tracker.detska_pc
+            name: Game PC
+        state_filter:
+          - 'home'
+        card:
+          type: glance
+          title: People that are home
+        # Entities card will take a list of entities and show their state.
+      - type: entities
+        # Title of the entities card
+        title: Living Room
+        # The entities here will be shown in the same order as specified.
+        # Each entry is an entity ID or a map with extra options.
+        entities:
+          - switch.soundbar_switch
+          - switch.xbox
+          - switch.tv
+          - entity: switch.plex
+            name: Plex on LG TV switch
+            secondary_info: last-changed
+          - media_player.lg_tv
+          - entity: media_player.lg_plex
+            name: LG TV Plex
+          - light.aquarium
+          - light.desk_lamp
+
+        # The markdown card will render markdown text.
+      - type: entities
+        title: Outside
+        show_header_toggle: false
+        entities:
+          - sensor.pws_weather
+          - sensor.pws_weather_1h
+          - sensor.pws_temp_c
+          - sensor.pws_precip_1d_mm
+          - sensor.pws_precip_today_metric
+          - switch.fontana_1_31
+          - binary_sensor.zona_1__zahrada
+          - binary_sensor.zona_2__trava_vlavo
+          - binary_sensor.zona_3__trava_vzadu
+          - binary_sensor.zona_4__trava_vpravo
+      - type: entities
+        title: Office
+        show_header_toggle: false
+        entities:
+          - device_tracker.ryzen
+          - device_tracker.zen
+          - device_tracker.echo_white
+          - sensor.plex
+          - media_player.firefox
+

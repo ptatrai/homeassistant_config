@@ -1,0 +1,6 @@
+- platform: luci
+  host: www.tatrai.sk
+  username: !secret luci_username
+  password: !secret luci_password
+  ssl: true
+

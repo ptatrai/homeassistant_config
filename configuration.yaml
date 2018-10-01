@@ -1,0 +1,219 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 48.377622
+  longitude: 17.573161
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 146
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Bratislava
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  base_url: https://remote.tatrai.sk
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+mqtt:
+  broker: 192.168.254.7
+
+# Weather prediction
+sensor:
+  - platform: wunderground
+    api_key: !secret wunderground_api_key
+    pws_id: ITRNAVA18
+    monitored_conditions:
+      - alerts
+      - temp_c
+      - precip_today_metric
+      - precip_1d_mm
+      - weather
+      - weather_1h
+  - platform: plex
+    host: 192.168.254.4
+    token: VifmrccxTU4HnCp9Y3xc
+  - platform: template
+    sensors:
+      lg_tv_source:
+        value_template: "{{ states.media_player.lg_tv.attributes['source'] | default('off')}}"
+        friendly_name: LG TV Source
+binary_sensor:
+  - platform: mqtt
+    name: Zona 1 - Zahrada
+    state_topic: "SIP/zones"
+    value_template: '{{value_json.zone_list[0]}}'
+    payload_on: "1"
+    payload_off: "0"
+    device_class: moisture
+  - platform: mqtt
+    name: Zona 2 - Trava Vlavo
+    state_topic: "SIP/zones"
+    value_template: '{{value_json.zone_list[1]}}'
+    payload_on: "1"
+    payload_off: "0"
+    device_class: moisture
+  - platform: mqtt
+    name: Zona 3 - Trava Vzadu
+    state_topic: "SIP/zones"
+    value_template: '{{value_json.zone_list[2]}}'
+    payload_on: "1"
+    payload_off: "0"
+    device_class: moisture
+  - platform: mqtt
+    name: Zona 4 - Trava Vpravo
+    state_topic: "SIP/zones"
+    value_template: '{{value_json.zone_list[3]}}'
+    payload_on: "1"
+    payload_off: "0"
+    device_class: moisture
+
+light:
+  - platform: mqtt
+    command_topic: "house/livingroom/aquarium"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_topic: "house/livingroom/aquarium"
+    name: "Aquarium"
+    retain: true
+  - platform: mqtt
+    command_topic: "house/livingroom/desklamp"
+    payload_on: "ON"
+    payload_off: "OFF"
+    state_topic: "house/livingroom/desklamp"
+    name: "Desk lamp"
+    retain: true
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+#cloud:
+
+media_player:
+  - platform: webostv
+    host: 192.168.254.20
+    name: LG TV
+    timeout: 1
+    filename: webostv.conf
+    turn_on_action:
+      service: switch.turn_on
+      data:
+        entity_id: switch.tv
+#   customize:
+#      sources:
+#        - 'LiveTV'
+#        - 'Netflix'
+#        - 'Other Box'
+#        - 'Plex' 
+#        - 'Time Machine'
+    
+notify:
+  - platform: webostv
+    host: 192.168.254.20
+    name: lg_tv
+    filename: webostv.conf
+  - platform: html5
+    name: html5
+    gcm_api_key: !secret gcm_api_key
+    gcm_sender_id: !secret gcm_sender_id
+
+ios:
+
+vera:
+  vera_controller_url: http://192.168.254.8:3480/
+ 
+alexa:
+  smart_home:
+    filter:
+      include_entities:
+        - media_player.lg_tv
+      exclude_entities:
+        - switch.q2_load_32
+      include_domains:
+        - light
+        - switch
+    entity_config:
+      switch.fontana_1_31:
+        name: Fountain
+        description: Garden Fountain
+      switch.plex:
+        description: Plex on TV
+
+homekit:
+  filter:
+    include_domains:
+      - light
+      - switch
+      - media_player
+    exclude_entities:
+      - switch.q2_load_32
+  entity_config:
+    media_player.lg_tv:
+      feature_list:
+        - feature: play_pause
+ 
+google_assistant:
+  project_id: homeassistant-29e63
+  client_id: !secret ga_client_id
+  access_token: !secret ga_access_token
+  agent_user_id: HASS
+  api_key: !secret ga_api_key
+  exposed_domains:
+    - switch
+    - light
+    - group
+    - media_player
+    - light.aquarium
+  entity_config:
+    switch.fontana_1_31:
+      name: Fountain
+    switch.plex:
+      name: Plex on TV
+    media_player.lg_tv:
+      name: LG TV
+
+automation: !include automations.yaml
+switch: !include switches.yaml
+device_tracker: !include device_tracker.yaml
+script: !include scripts.yaml
+group: !include groups.yaml
+
