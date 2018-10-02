@@ -19,12 +19,11 @@ views:
     icon: mdi:home-assistant
     # Optional background (overwrites the global background).
     background: radial-gradient(crimson, skyblue)
-    # Each view can have a different theme applied. Theme should be defined in the frontend.
-    theme: dark-mode
     # The cards to show on this view.
     cards:
         # The filter card will filter entities for their state
-      - type: entity-filter
+      - type: glance
+        title: People that are home
         entities:
           - entity: device_tracker.iphone6_peto
             name: Peto
@@ -32,11 +31,6 @@ views:
             name: Katka
           - entity: device_tracker.detska_pc
             name: Game PC
-        state_filter:
-          - 'home'
-        card:
-          type: glance
-          title: People that are home
         # Entities card will take a list of entities and show their state.
       - type: entities
         # Title of the entities card
@@ -47,9 +41,8 @@ views:
           - switch.soundbar_switch
           - switch.xbox
           - switch.tv
-          - entity: switch.plex
-            name: Plex on LG TV switch
-            secondary_info: last-changed
+          - entity: script.start_plex
+            name: Start Plex on LG TV
           - media_player.lg_tv
           - entity: media_player.lg_plex
             name: LG TV Plex
@@ -75,9 +68,9 @@ views:
         title: Office
         show_header_toggle: false
         entities:
-          - device_tracker.ryzen
+          - switch.ryzen
           - device_tracker.zen
-          - device_tracker.echo_white
+          - device_tracker.00fc8b81e3a9
           - sensor.plex
           - media_player.firefox
 

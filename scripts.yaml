@@ -1,0 +1,15 @@
+start_plex:
+  alias: Plex
+  sequence:
+    - condition: template
+      value_template: "{{not is_state('sensor.lg_tv_source', 'Plex')}}"
+    - service: switch.turn_on
+      data:
+        entity_id: switch.tv
+    - wait_template: "{{ is_state('media_player.lg_tv', 'playing') }}"
+      timeout: '00:00:16'
+      continue_on_timeout: 'true'
+    - service: mqtt.publish
+      data:
+        topic: "house/livingroom/plex"
+        payload: "ON"

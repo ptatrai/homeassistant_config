@@ -18,9 +18,21 @@
   payload_off: "OFF"
   state_topic: "house/livingroom/tv_state"
   name: "TV"
-- platform: mqtt
-  command_topic: "house/livingroom/plex"
-  payload_on: "ON"
-  payload_off: "OFF"
-  state_topic: "house/livingroom/plex_state"
-  name: "Plex"
+- platform: command_line
+  switches:
+    ryzen:
+      command_on: 'sudo /usr/sbin/etherwake -D -b "60:45:CB:9A:09:93"'
+      command_off: 'ssh ptatrai@ryzen sudo /bin/systemctl poweroff'
+      command_state: 'ping -c1 -w1 -q ryzen'
+- platform: template
+  switches:
+    plex:
+      value_template: "{{ is_state('script.start_plex', 'on') }}"
+      turn_on:
+        service: script.turn_on
+        data:
+          entity_id: script.start_plex
+      turn_off:
+        service: script.turn_on
+        data:
+          entity_id: script.start_plex

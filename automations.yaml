@@ -81,13 +81,3 @@
       topic: 'house/livingroom/tv_state'
       payload: 'OFF'
     service: mqtt.publish
-- id: update_plex
-  alias: Update LG TV Plex switch state
-  trigger:
-  - platform: state
-    entity_id: sensor.lg_tv_source
-  action:
-  - data:
-      topic: 'house/livingroom/plex_state'
-      payload_template: "{% if is_state_attr('media_player.lg_tv', 'source', 'Plex') -%}ON{%- else -%}OFF{%- endif %}"
-    service: mqtt.publish

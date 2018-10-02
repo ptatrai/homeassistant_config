@@ -132,7 +132,7 @@ media_player:
   - platform: webostv
     host: 192.168.254.20
     name: LG TV
-    timeout: 1
+    timeout: 5
     filename: webostv.conf
     turn_on_action:
       service: switch.turn_on
@@ -156,6 +156,10 @@ notify:
     gcm_api_key: !secret gcm_api_key
     gcm_sender_id: !secret gcm_sender_id
 
+shell_command:
+  turn_off_ryzen: 'ssh ptatrai@ryzen sudo /bin/systemctl poweroff'
+  turn_off_kodi: 'ssh pi@kidspi sudo poweroff'
+
 ios:
 
 vera:
@@ -176,6 +180,7 @@ alexa:
         name: Fountain
         description: Garden Fountain
       switch.plex:
+        name: Plex App
         description: Plex on TV
 
 homekit:
